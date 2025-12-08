@@ -1,0 +1,66 @@
+package day_02
+
+import java.nio.file.Files
+import java.nio.file.Path
+
+fun hasRepetitions(n: Long): Boolean {
+    val s = n.toString()
+    if (s.length < 2) return false
+
+    val stepLens = 1.rangeTo(s.length / 2).filter { s.length % it == 0 }
+
+    return stepLens.any { stepLen ->
+        val startRange = 0..s.length - stepLen step stepLen
+        val endRange = stepLen..s.length step stepLen
+        val ranges = startRange.zip(endRange)
+
+        val parts = ranges.map { (start, end) -> s.substring(start, end) }
+
+        parts.all { it.toLong() == parts.first().toLong() }
+    }
+}
+
+fun isRepeated(n: Long): Boolean {
+    val s = n.toString()
+    if (s.length < 2 || s.length % 2 != 0) return false
+
+    val (first, second) = s.substring(0..<s.length / 2) to s.substring(s.length / 2..<s.length)
+
+    return first.toLong() == second.toLong()
+}
+
+fun a(input: List<Pair<Long, Long>>) {
+    val answer = input.flatMap { (start, end) ->
+        start.rangeTo(end).map { n ->
+            if (isRepeated(n)) n else 0
+        }
+    }.sum()
+
+    println("Answer a: $answer")
+}
+
+fun b(input: List<Pair<Long, Long>>) {
+    val answer = input.flatMap { (start, end) ->
+        start.rangeTo(end).map { n ->
+            if (hasRepetitions(n)) n else 0
+        }
+    }.sum()
+
+    println("Answer b: $answer")
+}
+
+fun main() {
+
+    val inFname = "02/example.in"
+    // val inFname = "02/2.in"
+
+    val input = Files.readString(Path.of(inFname))
+        .split(",")
+        .map { pair ->
+            val (start, end) = pair.trim().split("-")
+            start.toLong() to end.toLong()
+        }
+
+    a(input)
+    b(input)
+}
