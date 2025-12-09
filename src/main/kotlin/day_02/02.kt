@@ -3,6 +3,15 @@ package day_02
 import java.nio.file.Files
 import java.nio.file.Path
 
+fun isRepeated(n: Long): Boolean {
+    val s = n.toString()
+    if (s.length < 2 || s.length % 2 != 0) return false
+
+    val (first, second) = s.substring(0..<s.length / 2) to s.substring(s.length / 2..<s.length)
+
+    return first.toLong() == second.toLong()
+}
+
 fun hasRepetitions(n: Long): Boolean {
     val s = n.toString()
     if (s.length < 2) return false
@@ -20,17 +29,8 @@ fun hasRepetitions(n: Long): Boolean {
     }
 }
 
-fun isRepeated(n: Long): Boolean {
-    val s = n.toString()
-    if (s.length < 2 || s.length % 2 != 0) return false
-
-    val (first, second) = s.substring(0..<s.length / 2) to s.substring(s.length / 2..<s.length)
-
-    return first.toLong() == second.toLong()
-}
-
-fun a(input: List<Pair<Long, Long>>) {
-    val answer = input.flatMap { (start, end) ->
+fun a(productIdRanges: List<Pair<Long, Long>>) {
+    val answer = productIdRanges.flatMap { (start, end) ->
         start.rangeTo(end).map { n ->
             if (isRepeated(n)) n else 0
         }
@@ -39,8 +39,8 @@ fun a(input: List<Pair<Long, Long>>) {
     println("Answer a: $answer")
 }
 
-fun b(input: List<Pair<Long, Long>>) {
-    val answer = input.flatMap { (start, end) ->
+fun b(productIdRanges: List<Pair<Long, Long>>) {
+    val answer = productIdRanges.flatMap { (start, end) ->
         start.rangeTo(end).map { n ->
             if (hasRepetitions(n)) n else 0
         }
@@ -50,17 +50,16 @@ fun b(input: List<Pair<Long, Long>>) {
 }
 
 fun main() {
+//    val ipnut = "02/example.in"
+    val input = "02/2.in"
 
-    val inFname = "02/example.in"
-    // val inFname = "02/2.in"
-
-    val input = Files.readString(Path.of(inFname))
+    val productIdRanges = Files.readString(Path.of(input))
         .split(",")
         .map { pair ->
             val (start, end) = pair.trim().split("-")
             start.toLong() to end.toLong()
         }
 
-    a(input)
-    b(input)
+    a(productIdRanges) // 12850231731
+    b(productIdRanges) // 24774350322
 }

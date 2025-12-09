@@ -7,13 +7,13 @@ import kotlin.math.floor
 
 const val wrap = 100
 
-fun turnDial(pos: Int, dir: String, steps: Int): Int = when (dir) {
-    "L" -> (pos - steps)
-    "R" -> (pos + steps)
+fun turnDial(pos: Int, dir: Char, steps: Int): Int = when (dir) {
+    'L' -> (pos - steps)
+    'R' -> (pos + steps)
     else -> throw IllegalArgumentException("Invalid direction: $dir")
 }
 
-fun a(instructions: List<Pair<String, Int>>) {
+fun a(instructions: List<Pair<Char, Int>>) {
     var pos = 50
     var numberOfZeros = 0
 
@@ -28,27 +28,7 @@ fun a(instructions: List<Pair<String, Int>>) {
     println(numberOfZeros)
 }
 
-/*
- If we reach 0 -> count it
- If we rush by 0 -> count it
-   rush by 0 negatively:
-     case previous pos 0 -> negative: floor - 1
-     else -> floor
-   rush by 0 positively:
-     case newPos 0: floor -1
-     else -> floor
-
- 0 -> -1 --> 0
- 1 -> -1 --> 1
-
- 99 -> 100 --> 1
- 55 -> 0 --> 1
-
- */
-
-// https://gemini.google.com/share/aa3729241b18
-
-fun b(instructions: List<Pair<String, Int>>) {
+fun b(instructions: List<Pair<Char, Int>>) {
     var pos = 50
     var numberOfZeros = 0
 
@@ -75,13 +55,13 @@ fun b(instructions: List<Pair<String, Int>>) {
 
 
 fun main() {
-    val input = "01/1.in"
     // val input = "01/example.in"
+    val input = "01/1.in"
 
     val instructions = Files.readAllLines(Path.of(input)).map { line ->
-        line.slice(0..0) to line.slice(1..line.lastIndex).toInt()
+        line[0] to line.slice(1..line.lastIndex).toInt()
     }
 
-    a(instructions)
-    b(instructions)
+    a(instructions) // 1158
+    b(instructions) // 6860
 }

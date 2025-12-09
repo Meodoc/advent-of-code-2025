@@ -62,10 +62,10 @@ fun bFunctional(banks: List<List<Int>>) {
 }
 
 fun main() {
-//    val inputFileName = "03/example.in"
-    val inputFileName = "03/3.in"
+//    val input = "03/example.in"
+    val input = "03/3.in"
 
-    val banks = Files.readAllLines(Path.of(inputFileName)).map { line ->
+    val banks = Files.readAllLines(Path.of(input)).map { line ->
         line.toList().map { it.digitToInt() }
     }
 
