@@ -1,7 +1,6 @@
 package day_02
 
-import java.nio.file.Files
-import java.nio.file.Path
+import java.io.File
 
 fun isRepeated(n: Long): Boolean {
     val s = n.toString()
@@ -50,10 +49,10 @@ fun b(productIdRanges: List<Pair<Long, Long>>) {
 }
 
 fun main() {
-//    val ipnut = "02/example.in"
+    // val input = "02/example.in"
     val input = "02/2.in"
 
-    val productIdRanges = Files.readString(Path.of(input))
+    val productIdRanges = File(input).readText()
         .split(",")
         .map { pair ->
             val (start, end) = pair.trim().split("-")

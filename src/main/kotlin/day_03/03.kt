@@ -1,7 +1,6 @@
 package day_03
 
-import java.nio.file.Files
-import java.nio.file.Path
+import java.io.File
 import kotlin.math.pow
 
 fun findBiggestJoltageWithIndex(battery: List<Int>): Pair<Int, Int> {
@@ -62,15 +61,14 @@ fun bFunctional(banks: List<List<Int>>) {
 }
 
 fun main() {
-//    val input = "03/example.in"
+    // val input = "03/example.in"
     val input = "03/3.in"
 
-    val banks = Files.readAllLines(Path.of(input)).map { line ->
+    val banks = File(input).readLines().map { line ->
         line.toList().map { it.digitToInt() }
     }
 
     a(banks) // 16993
     b(banks) // 168617068915447
-
-//    bFunctional(banks)
+    bFunctional(banks)
 }

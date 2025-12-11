@@ -1,7 +1,6 @@
 package day_01
 
-import java.nio.file.Files
-import java.nio.file.Path
+import java.io.File
 import kotlin.math.abs
 import kotlin.math.floor
 
@@ -58,7 +57,7 @@ fun main() {
     // val input = "01/example.in"
     val input = "01/1.in"
 
-    val instructions = Files.readAllLines(Path.of(input)).map { line ->
+    val instructions = File(input).readLines().map { line ->
         line[0] to line.slice(1..line.lastIndex).toInt()
     }
 
